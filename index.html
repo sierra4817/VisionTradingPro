@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visión Trading Pro - Programa Transaccional Avanzado</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* Panel del visor dinámico */
+        .visor-clase {
+            display: none;
+            margin-top: 30px;
+            padding: 30px;
+            background: var(--bg-card);
+            border: 2px solid var(--brand-main);
+            border-radius: 8px;
+            box-shadow: 0px 12px 40px var(--glass-shadow);
+        }
+        .visor-clase.activo {
+            display: block;
+        }
+        .visor-container {
+            color: var(--text-pure);
+            white-space: pre-wrap; /* Mantiene el formato de texto del archivo .md */
+            font-family: monospace;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .module-card li {
+            cursor: pointer;
+            transition: color 0.2s, padding-left 0.2s;
+        }
+        .module-card li:hover {
+            color: var(--brand-main);
+            padding-left: 5px;
+        }
+        .cerrar-visor {
+            background: var(--data-down);
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 700;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo">VISIÓN <span>TRADING PRO</span></div>
+            <nav class="nav-links">
+                <a href="#filosofia">Filosofía</a>
+                <a href="#temario">Temario Completo</a>
+                <a href="#vsl" class="btn-primary">Acceso Inmediato</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="hero-section">
+            <div class="hero-info">
+                <h1>Trading sin humo <br>ni atajos</h1>
+                <p class="tagline">Psicología | Estrategia | Disciplina</p>
+                <p class="description">
+                    El programa educativo definitivo que te lleva desde los cimientos técnicos hasta el modelado matemático de riesgo institucional en MetaTrader 4.
+                </p>
+                <div class="hero-actions">
+                    <a href="#vsl" class="btn-main">Ver Presentación</a>
+                    <a href="#temario" class="btn-secondary">Ver los 10 Módulos</a>
+                </div>
+            </div>
+
+            <div class="vsl-container" id="vsl">
+                <div class="re-card">
+                    <div class="re-card__header">
+                        <span class="status-dot"></span> EN VIVO: Presentación Oficial del Programa
+                    </div>
+                    <div class="re-card__body">
+                        <div class="video-placeholder" onclick="cargarArchivo('vsl_y_plantilla_vision_trading_pro.md')">
+                            <div class="play-button"></div>
+                            <p>Haz clic para cargar el archivo del VSL</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="visor-contenido" class="visor-clase">
+            <button class="cerrar-visor" onclick="cerrarVisor()">Cerrar Lección</button>
+            <div id="contenido-clase" class="visor-container"></div>
+        </section>
+
+        <section class="filosofia-section" id="filosofia">
+            <blockquote>
+                "El noventa por ciento de las personas que operan en entornos minoristas fallan por falta de estructura matemática, no por falta de estrategias."
+            </blockquote>
+        </section>
+
+        <section class="temario-section" id="temario">
+            <h2>Arquitectura Completa del Curso (70 Lecciones)</h2>
+            <p class="section-subtitle">Haz clic en cualquier lección que tengas en la carpeta para abrir su archivo real</p>
+            
+            <div class="modules-grid">
+                <div class="module-card">
+                    <span class="module-badge">Módulo 1</span>
+                    <h3>Entorno Profesional y MT4</h3>
+                    <ul>
+                        <li onclick="cargarArchivo('clase_1_1_configuracion_espacio.md')"><span>1.1</span> Configuración del espacio</li>
+                        <li onclick="cargarArchivo('clase_1_2_descarga_instalacion.md')"><span>1.2</span> Descarga e instalación</li>
+                        <li onclick="cargarArchivo('clase_1_3_navegacion_terminal.md')"><span>1.3</span> Navegación por terminal</li>
+                        <li onclick="cargarArchivo('clase_1_4_tipos_ordenes.md')"><span>1.4</span> Tipos de órdenes</li>
+                        <li onclick="cargarArchivo('clase_1_5_configuracion_grafico.md')"><span>1.5</span> Configuración del gráfico</li>
+                        <li onclick="cargarArchivo('clase_1_6_temporalidades.md')"><span>1.6</span> Temporalidades</li>
+                        <li onclick="cargarArchivo('clase_1_7_herramientas_dibujo.md')"><span>1.7</span> Herramientas de dibujo</li>
+                    </ul>
+                </div>
+
+                <div class="module-card">
+                    <span class="module-badge">Módulo 2</span>
+                    <h3>Fundamentos de Mercado</h3>
+                    <ul>
+                        <li onclick="cargarArchivo('clase_2_1_que_es_trading.md')"><span>2.1</span> Qué es el trading</li>
+                        <li onclick="cargarArchivo('clase_2_2_estructura_activos.md')"><span>2.2</span> Estructura de activos</li>
+                        <li onclick="cargarArchivo('clase_2_3_comportamiento_oro.md')"><span>2.3</span> Comportamiento del Oro</li>
+                    </ul>
+                </div>
+
+                <div class="module-card">
+                    <span class="module-badge">Módulo 5</span>
+                    <h3>Chartismo de Giro</h3>
+                    <ul>
+                        <li onclick="cargarArchivo('clase_5_2_hch.md')"><span>5.2</span> Hombro-Cabeza-Hombro</li>
+                        <li onclick="cargarArchivo('clase_5_3_triple.md')"><span>5.3</span> Triple Techo / Suelo</li>
+                        <li onclick="cargarArchivo('clase_5_4_cunas.md')"><span>5.4</span> Cuñas de Reversión</li>
+                        <li onclick="cargarArchivo('clase_5_5_neckline.md')"><span>5.5</span> Línea de Cuello</li>
+                        <li onclick="cargarArchivo('clase_5_6_volumen.md')"><span>5.6</span> Uso del Volumen</li>
+                        <li onclick="cargarArchivo('clase_5_7_ordenes.md')"><span>5.7</span> Configuración de Órdenes</li>
+                    </ul>
+                </div>
+
+                <div class="module-card">
+                    <span class="module-badge">Módulo 6</span>
+                    <h3>Chartismo de Tendencia</h3>
+                    <ul>
+                        <li onclick="cargarArchivo('clase_6_1_banderas.md')"><span>6.1</span> Banderas (Flags)</li>
+                        <li onclick="cargarArchivo('clase_6_2_banderines.md')"><span>6.2</span> Banderines</li>
+                        <li onclick="cargarArchivo('clase_6_3_cunas.md')"><span>6.3</span> Cuñas de Continuación</li>
+                        <li onclick="cargarArchivo('clase_6_4_rectangulos.md')"><span>6.4</span> Rectángulos</li>
+                        <li onclick="cargarArchivo('clase_6_5_triangulos.md')"><span>6.5</span> Triángulos</li>
+                        <li onclick="cargarArchivo('clase_6_6_tp.md')"><span>6.6</span> Cálculo de Take Profit</li>
+                        <li onclick="cargarArchivo('clase_6_7_invalidacion.md')"><span>6.7</span> Invalidación de Patrón</li>
+                    </ul>
+                </div>
+
+                <div class="module-card">
+                    <span class="module-badge">Módulo 7</span>
+                    <h3>Filtros Estadísticos</h3>
+                    <ul>
+                        <li onclick="cargarArchivo('clase_7_1_ema.md')"><span>7.1</span> Medias Móviles (EMA)</li>
+                        <li onclick="cargarArchivo('clase_7_2_macd.md')"><span>7.2</span> El oscilador MACD</li>
+                        <li onclick="cargarArchivo('clase_7_3_rsi.md')"><span>7.3</span> Índice RSI</li>
+                    </ul>
+                </div>
+
+                <div class="module-card">
+                    <span class="module-badge">Módulo 8</span>
+                    <h3>Dinámica Institucional</h3>
+                    <ul>
+                        <li onclick="cargarArchivo('clase_8_2_blocks.md')"><span>8.2</span> Order Blocks</li>
+                        <li onclick="cargarArchivo('clase_8_3_fvg.md')"><span>8.3</span> Imbalances (FVG)</li>
+                        <li onclick="cargarArchivo('clase_8_4_squeeze.md')"><span>8.4</span> Short Squeeze</li>
+                        <li onclick="cargarArchivo('clase_8_5_stophunt.md')"><span>8.5</span> Caza de Stops (Stop Hunts)</li>
+                        <li onclick="cargarArchivo('clase_8_6_correlacion.md')"><span>8.6</span> Impacto del DXY</li>
+                        <li onclick="cargarArchivo('clase_8_7_multi_temporal.md')"><span>8.7</span> Análisis Multi-temporal</li>
+                    </ul>
+                </div>
+
+                <div class="module-card">
+                    <span class="module-badge">Módulo 9</span>
+                    <h3>Gestión de Riesgo Avanzada</h3>
+                    <ul>
+                        <li onclick="cargarArchivo('clase_9_1_pilar_consistencia.md')"><span>9.1</span> Pilar de Consistencia</li>
+                        <li onclick="cargarArchivo('clase_9_2_calculo_posicion.md')"><span>9.2</span> Tamaño de Posición</li>
+                        <li onclick="cargarArchivo('clase_9_3_riesgo_beneficio.md')"><span>9.3</span> Ratio Riesgo/Beneficio</li>
+                        <li onclick="cargarArchivo('clase_9_4_gestion_dinamica.md')"><span>9.4</span> Gestión Dinámica</li>
+                        <li onclick="cargarArchivo('clase_9_5_regla1.md')"><span>9.5</span> Regla del 1%</li>
+                        <li onclick="cargarArchivo('clase_9_6_correlacion_riesgo.md')"><span>9.6</span> Correlación de Riesgo</li>
+                        <li onclick="cargarArchivo('clase_9_7_drawdown.md')"><span>9.7</span> Protocolo de Drawdown</li>
+                    </ul>
+                </div>
+
+                <div class="module-card">
+                    <span class="module-badge">Módulo 10</span>
+                    <h3>Disciplina Operativa</h3>
+                    <ul>
+                        <li onclick="cargarArchivo('clase_10_1_estadistica.md')"><span>10.1</span> Mentalidad Estadística</li>
+                        <li onclick="cargarArchivo('clase_10_2_sesgos.md')"><span>10.2</span> Sesgos Emocionales</li>
+                        <li onclick="cargarArchivo('clase_10_3_bitacora.md')"><span>10.3</span> Bitácora Cuantitativa</li>
+                        <li onclick="cargarArchivo('clase_10_4_plan_escrito.md')"><span>10.4</span> Plan de Trading Escrito</li>
+                        <li onclick="cargarArchivo('clase_10_5_auditoria.md')"><span>10.5</span> Auditoría de Métricas</li>
+                        <li onclick="cargarArchivo('clase_10_6_rutina.md')"><span>10.6</span> Rutinas Pre/Post Mercado</li>
+                        <li onclick="cargarArchivo('clase_10_7_consistencia.md')"><span>10.7</span> Camino a Consistencia</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Visión Trading Pro. Todos los derechos reservados. El trading de contratos financieros implica un alto riesgo de pérdida de capital.</p>
+    </footer>
+
+    <script>
+        // Esta función lee dinámicamente cualquier archivo .md que esté en la misma carpeta
+        function cargarArchivo(nombreArchivo) {
+            const visor = document.getElementById('visor-contenido');
+            const contenido = document.getElementById('contenido-clase');
+            
+            fetch(nombreArchivo)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Archivo no encontrado en la carpeta local');
+                    }
+                    return response.text();
+                })
+                .then(text => {
+                    contenido.textContent = text; // Muestra el texto tal cual está en tu archivo de la carpeta
+                    visor.classList.add('activo');
+                    visor.scrollIntoView({ behavior: 'smooth' });
+                })
+                .catch(error => {
+                    contenido.innerHTML = `<h2>Error de Acceso Local</h2><p>No se pudo leer el archivo <strong>${nombreArchivo}</strong>. Asegúrate de que el archivo existe en la carpeta <code>Downloads/VisionTradingPro</code> y de que estás abriendo la web a través de un servidor local (Live Server de VS Code) para que el navegador tenga permisos de lectura.</p>`;
+                    visor.classList.add('activo');
+                    visor.scrollIntoView({ behavior: 'smooth' });
+                });
+        }
+
+        function cerrarVisor() {
+            document.getElementById('visor-contenido').classList.remove('activo');
+        }
+    </script>
+</body>
+</html>
