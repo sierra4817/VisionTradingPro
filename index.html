@@ -6,18 +6,59 @@
     <title>VISIÓN TRADING PRO - Panel Institucional</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Cargamos la librería oficial de TradingView para los gráficos reales -->
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+    <style>
+        /* Controles de dimensionamiento del gráfico estilo Zoomex */
+        .dimension-controls {
+            display: flex;
+            gap: 15px;
+            background: #05080a;
+            padding: 10px 20px;
+            border-bottom: 1px solid var(--line-general);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--text-muted);
+            align-items: center;
+        }
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .control-group input[type="range"] {
+            accent-color: var(--brand-main);
+            width: 120px;
+            cursor: pointer;
+        }
+        .control-value {
+            color: var(--brand-main);
+            font-weight: bold;
+            min-width: 45px;
+        }
+        /* Contenedor del gráfico con scroll si excede la pantalla */
+        .chart-viewport {
+            flex: 1;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background: #05080a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .chart-wrapper-fixed {
+            transition: width 0.1s ease, height 0.1s ease;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Encabezado de Alta Ejecución -->
     <header class="main-header">
         <div class="header-container">
             <div class="logo">VISIÓN <span>TRADING PRO</span></div>
             <div class="market-ticker">
                 <span class="ticker-pair">BTCUSDT</span>
-                <span class="ticker-price" id="live-price">63,514.00</span>
+                <span class="ticker-price">63,514.00</span>
                 <span class="ticker-change down">-3.01%</span>
             </div>
             <nav class="nav-links">
@@ -26,22 +67,38 @@
         </div>
     </header>
 
-    <!-- INTERFAZ ESTILO TERMINAL (IGUAL A LA FOTO) -->
-    <section id="terminal-workspace" class="terminal-container">
-        <!-- Columna Izquierda: Gráfico Real de TradingView -->
+    <section class="dimension-controls">
+        <span style="font-weight:700; color:#fff;">⚙️ CONFIGURACIÓN DE PANTALLA:</span>
+        <div class="control-group">
+            <label>Ancho:</label>
+            <input type="range" id="slider-ancho" min="400" max="1400" value="850" oninput="ajustarDimensiones()">
+            <span id="val-ancho" class="control-value">850px</span>
+        </div>
+        <div class="control-group">
+            <label>Alto:</label>
+            <input type="range" id="slider-alto" min="300" max="800" value="500" oninput="ajustarDimensiones()">
+            <span id="val-alto" class="control-value">500px</span>
+        </div>
+        <button onclick="restablecerResponsivo()" style="background:var(--line-general); color:#fff; border:1px solid #334e68; padding:3px 8px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:10px;">Ajuste Automático (100%)</button>
+    </section>
+
+    <section id="terminal-workspace" class="terminal-container" style="height: auto; min-height: 550px;">
         <div class="terminal-chart-box">
             <div class="panel-header">
                 <span class="status-dot green"></span> ENTORNO DE ANÁLISIS VIVO (TRADINGVIEW INTERACTIVE)
             </div>
-            <div id="tradingview_widget"></div>
+            <div class="chart-viewport">
+                <div id="chart-wrapper" class="chart-wrapper-fixed" style="width: 850px; height: 500px;">
+                    <div id="tradingview_widget"></div>
+                </div>
+            </div>
         </div>
 
-        <!-- Columna Derecha: Visor de Contenido Profesional -->
-        <div class="terminal-content-box">
+        <div class="terminal-content-box" style="max-height: 600px;">
             <div class="panel-header">
                 <span class="status-dot red"></span> BITÁCORA TÉCNICA DE LOCUCIÓN
             </div>
-            <div id="visor-instrucciones" class="visor-placeholder-text">
+            <div id="visor-placeholder-text" class="visor-placeholder-text">
                 Selecciona una lección del temario inferior para inicializar los flujos de órdenes, el gráfico analítico y el guion técnico de alta fidelidad.
             </div>
             <div id="visor-dinamico" class="visor-real-content" style="display: none;">
@@ -56,56 +113,124 @@
         </div>
     </section>
 
-    <!-- ARQUITECTURA DEL CURSO -->
     <main class="main-content">
         <section class="temario-section" id="temario">
             <h2>Estructura de Contenidos Saneada</h2>
             <p class="section-subtitle">Haz clic en cualquier bloque operativo para cargar el gráfico y la información de calidad</p>
             
             <div class="modules-grid">
-                <!-- Módulo 8 -->
+                <div class="module-card">
+                    <span class="module-badge">Módulo 1</span>
+                    <h3>Entorno Profesional</h3>
+                    <ul>
+                        <li onclick="cargarLecciónTerminal('1.1', 'clase_1_1_configuracion_espacio.md', 'BINANCE:BTCUSDT')"><span>1.1</span> Configuración del Espacio</li>
+                        <li onclick="cargarLecciónTerminal('1.2', 'clase_1_2_descarga_instalacion.md', 'BINANCE:BTCUSDT')"><span>1.2</span> Descarga e Instalación</li>
+                        <li onclick="cargarLecciónTerminal('1.3', 'clase_1_3_navegacion_terminal.md', 'BINANCE:BTCUSDT')"><span>1.3</span> Navegación por Terminal</li>
+                        <li onclick="cargarLecciónTerminal('1.4', 'clase_1_4_tipos_ordenes.md', 'BINANCE:BTCUSDT')"><span>1.4</span> Tipos de Órdenes</li>
+                        <li onclick="cargarLecciónTerminal('1.5', 'clase_1_5_configuracion_grafico.md', 'BINANCE:BTCUSDT')"><span>1.5</span> Configuración del Gráfico</li>
+                        <li onclick="cargarLecciónTerminal('1.6', 'clase_1_6_temporalidades.md', 'BINANCE:BTCUSDT')"><span>1.6</span> Temporalidades del Mercado</li>
+                        <li onclick="cargarLecciónTerminal('1.7', 'clase_1_7_herramientas_dibujo.md', 'BINANCE:BTCUSDT')"><span>1.7</span> Herramientas de Dibujo</li>
+                    </ul>
+                </div>
+
+                <div class="module-card">
+                    <span class="module-badge">Módulo 2</span>
+                    <h3>Fundamentos Técnicos</h3>
+                    <ul>
+                        <li onclick="cargarLecciónTerminal('2.1', 'clase_2_1_que_es_trading.md', 'BINANCE:BTCUSDT')"><span>2.1</span> Qué es el Trading</li>
+                        <li onclick="cargarLecciónTerminal('2.2', 'clase_2_2_estructura_activos.md', 'SP:SPX')"><span>2.2</span> Estructura de Activos</li>
+                        <li onclick="cargarLecciónTerminal('2.3', 'clase_2_3_comportamiento_oro.md', 'OANDA:XAUUSD')"><span>2.3</span> Comportamiento del Oro</li>
+                        <li onclick="cargarLecciónTerminal('2.4', 'clase_2_4_coste_transaccional.md', 'FX:EURUSD')"><span>2.4</span> Coste Transaccional</li>
+                        <li onclick="cargarLecciónTerminal('2.5', 'clase_2_5_apalancamiento_margen.md', 'BINANCE:BTCUSDT')"><span>2.5</span> Apalancamiento y Margen</li>
+                        <li onclick="cargarLecciónTerminal('2.6', 'clase_2_6_concepto_liquidez.md', 'NASDAQ:IXIC')"><span>2.6</span> Concepto de Liquidez</li>
+                        <li onclick="cargarLecciónTerminal('2.7', 'clase_2_7_horarios_operativos.md', 'FX:EURUSD')"><span>2.7</span> Horarios Operativos</li>
+                    </ul>
+                </div>
+
                 <div class="module-card">
                     <span class="module-badge">Módulo 8</span>
                     <h3>Dinámica Institucional</h3>
                     <ul>
-                        <li onclick="cargarLecciónTerminal('8.2', 'clase_8_2_blocks.md', 'BINANCE:BTCUSDT')"><span>8.2</span> Order Blocks (Rastro de la Banca)</li>
+                        <li onclick="cargarLecciónTerminal('8.2', 'clase_8_2_blocks.md', 'BINANCE:BTCUSDT')"><span>8.2</span> Order Blocks (Rastro)</li>
                         <li onclick="cargarLecciónTerminal('8.3', 'clase_8_3_fvg.md', 'BINANCE:BTCUSDT')"><span>8.3</span> Vacíos e Imbalances (FVG)</li>
                         <li onclick="cargarLecciónTerminal('8.4', 'clase_8_4_squeeze.md', 'SP:SPX')"><span>8.4</span> Anatomía de Short Squeeze</li>
                         <li onclick="cargarLecciónTerminal('8.5', 'clase_8_5_stophunt.md', 'OANDA:XAUUSD')"><span>8.5</span> Caza de Stops (Stop Hunts)</li>
-                        <li onclick="cargarLecciónTerminal('8.6', 'clase_8_6_correlacion.md', 'CAPITALCOM:DXY')"><span>8.6</span> Impacto Macroeconómico del DXY</li>
+                        <li onclick="cargarLecciónTerminal('8.6', 'clase_8_6_correlacion.md', 'CAPITALCOM:DXY')"><span>8.6</span> Impacto del DXY</li>
+                        <li onclick="cargarLecciónTerminal('8.7', 'clase_8_7_multi_temporal.md', 'BINANCE:BTCUSDT')"><span>8.7</span> Análisis Multi-temporal</li>
                     </ul>
                 </div>
 
-                <!-- Módulo 9 -->
                 <div class="module-card">
-                    <span class="module-badge">Módulo 9</span>
-                    <h3>Gestión de Riesgo</h3>
+                    <span class="module-badge">Módulo 10</span>
+                    <h3>Disciplina Operativa</h3>
                     <ul>
-                        <li onclick="cargarLecciónTerminal('9.5', 'clase_9_5_regla1.md', 'BINANCE:BTCUSDT')"><span>9.5</span> Regla del 1% (Protección Estricta)</li>
-                        <li onclick="cargarLecciónTerminal('9.7', 'clase_9_7_drawdown.md', 'FX:EURUSD')"><span>9.7</span> Protocolo de Recuperación (Drawdown)</li>
+                        <li onclick="cargarLecciónTerminal('10.1', 'clase_10_1_estadistica.md', 'NASDAQ:IXIC')"><span>10.1</span> Mentalidad Estadística</li>
+                        <li onclick="cargarLecciónTerminal('10.2', 'clase_10_2_sesgos.md', 'SP:SPX')"><span>10.2</span> Sesgos Emocionales</li>
+                        <li onclick="cargarLecciónTerminal('10.3', 'clase_10_3_bitacora.md', 'FX:EURUSD')"><span>10.3</span> Bitácora Cuantitativa</li>
+                        <li onclick="cargarLecciónTerminal('10.4', 'clase_10_4_plan_escrito.md', 'SP:SPX')"><span>10.4</span> Plan de Trading Escrito</li>
+                        <li onclick="cargarLecciónTerminal('10.5', 'clase_10_5_auditoria.md', 'NASDAQ:IXIC')"><span>10.5</span> Auditoría de Métricas</li>
+                        <li onclick="cargarLecciónTerminal('10.6', 'clase_10_6_rutina.md', 'OANDA:XAUUSD')"><span>10.6</span> Rutinas Pre/Post Mercado</li>
+                        <li onclick="cargarLecciónTerminal('10.7', 'clase_10_7_consistencia.md', 'FX:EURUSD')"><span>10.7</span> Camino a Consistencia</li>
                     </ul>
                 </div>
             </div>
         </section>
     </main>
 
+    <footer class="main-footer">
+        <p>&copy; 2026 Visión Trading Pro. Todos los derechos reservados. El trading implica alto riesgo.</p>
+    </footer>
+
     <script>
-        // Inicializar el gráfico de TradingView por defecto (BTCUSDT estilo oscuro como en Zoomex)
-        let widgetTradingView = new TradingView.widget({
-            "width": "100%",
-            "height": "100%",
-            "symbol": "BINANCE:BTCUSDT",
-            "interval": "60",
-            "timezone": "Etc/UTC",
-            "theme": "dark",
-            "style": "1",
-            "locale": "es",
-            "toolbar_bg": "#05080a",
-            "enable_publishing": false,
-            "hide_side_toolbar": false,
-            "allow_symbol_change": true,
-            "container_id": "tradingview_widget"
-        });
+        let currentSymbol = "BINANCE:BTCUSDT";
+
+        // Inicialización básica de TradingView
+        function initTradingView(symbol, ancho, alto) {
+            document.getElementById('tradingview_widget').innerHTML = '';
+            new TradingView.widget({
+                "width": ancho,
+                "height": alto,
+                "symbol": symbol,
+                "interval": "60",
+                "timezone": "Etc/UTC",
+                "theme": "dark",
+                "style": "1",
+                "locale": "es",
+                "toolbar_bg": "#05080a",
+                "enable_publishing": false,
+                "hide_side_toolbar": false,
+                "allow_symbol_change": true,
+                "container_id": "tradingview_widget"
+            });
+        }
+
+        // Ejecutar primer gráfico al cargar
+        initTradingView(currentSymbol, "100%", "100%");
+
+        // Función para cambiar el tamaño mediante los controles deslizantes
+        function ajustarDimensiones() {
+            const ancho = document.getElementById('slider-ancho').value;
+            const alto = document.getElementById('slider-alto').value;
+            
+            document.getElementById('val-ancho').innerText = ancho + "px";
+            document.getElementById('val-alto').innerText = alto + "px";
+            
+            const wrapper = document.getElementById('chart-wrapper');
+            wrapper.style.width = ancho + "px";
+            wrapper.style.height = alto + "px";
+            
+            initTradingView(currentSymbol, "100%", "100%");
+        }
+
+        // Restablecer el gráfico para que ocupe todo el panel automáticamente
+        function restablecerResponsivo() {
+            const wrapper = document.getElementById('chart-wrapper');
+            wrapper.style.width = "100%";
+            wrapper.style.height = "100%";
+            document.getElementById('val-ancho').innerText = "100%";
+            document.getElementById('val-alto').innerText = "100%";
+            initTradingView(currentSymbol, "100%", "100%");
+        }
 
         function formatearTextoLimpio(texto) {
             return texto
@@ -118,21 +243,13 @@
         }
 
         function cargarLecciónTerminal(id, archivo, tickerActivo) {
-            // 1. Actualizar el gráfico dinámicamente según el activo de la clase
-            document.getElementById('tradingview_widget').innerHTML = '';
-            widgetTradingView = new TradingView.widget({
-                "width": "100%",
-                "height": "100%",
-                "symbol": tickerActivo,
-                "interval": "60",
-                "theme": "dark",
-                "style": "1",
-                "locale": "es",
-                "toolbar_bg": "#05080a",
-                "container_id": "tradingview_widget"
-            });
+            currentSymbol = tickerActivo;
+            
+            // Re-renderizar el gráfico con el activo seleccionado respetando las dimensiones del panel
+            const wrapper = document.getElementById('chart-wrapper');
+            initTradingView(currentSymbol, "100%", "100%");
 
-            // 2. Cargar el texto limpio libre de redundancias mediante fetch asíncrono desde GitHub
+            // Carga asíncrona limpia desde el repositorio de GitHub
             fetch(archivo)
                 .then(res => { if(!res.ok) throw new Error(); return res.text(); })
                 .then(text => {
@@ -148,7 +265,7 @@
                     document.getElementById('terminal-workspace').scrollIntoView({ behavior: 'smooth' });
                 })
                 .catch(() => {
-                    document.getElementById('visor-placeholder-text').innerHTML = `<span style="color:var(--data-down)">⚠️ Error de enlace: Asegúrate de que el archivo "${archivo}" no tenga extensiones duplicadas en tu repositorio.</span>`;
+                    document.getElementById('visor-placeholder-text').innerHTML = `<span style="color:var(--data-down)">⚠️ Error de enlace: Asegúrate de que el archivo "${archivo}" esté subido correctamente a tu repositorio de GitHub.</span>`;
                 });
         }
     </script>
